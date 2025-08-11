@@ -3,6 +3,7 @@ name: Run Ippodo Checker Every 5 Minutes
 on:
   schedule:
     - cron: "*/5 * * * *"
+  workflow_dispatch:
 
 jobs:
   check-stock:
