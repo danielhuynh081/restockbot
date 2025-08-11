@@ -28,12 +28,7 @@ def purchase(hook):
 def ippodo():
     url = "https://ippodotea.com/products/sayaka-no-mukashi.js"
     ippodo_channel = "https://discord.com/api/webhooks/1404587748727328779/moIUDkcxMnA9HYTZT0KOW-w18-YIjgq5lY1j5fiOnNUX1Qxxtevk18MCn99YWjnJQwlt"
-    
-    state = load_state()
-    
-    if state.get("bought"):
-        send_discord_message(ippodo_channel, "Already bought. Skipping restock check. @everyone")
-        return
+
     
     response = requests.get(url)
     if response.status_code != 200:
@@ -45,11 +40,8 @@ def ippodo():
 
     for variant in variants:
         inventory = variant.get("inventory_quantity", 0)
-        if inventory > 0:
+        if inventory < 0:
             send_discord_message(ippodo_channel, "Ippodo Restock! @everyone")
-            purchase(ippodo_channel)  # Call the purchase placeholder function
-            state["bought"] = True
-            save_state(state)
             break  # Stop after successful purchase
         else:
             print(f"Sakaya no Mukashi is not available. Inventory: {inventory}")
