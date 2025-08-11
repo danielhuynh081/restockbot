@@ -40,7 +40,7 @@ def ippodo():
 
     for variant in variants:
         inventory = variant.get("inventory_quantity", 0)
-        if inventory < 0:
+        if inventory > 0:
             send_discord_message(ippodo_channel, "Ippodo Restock! @everyone")
             break  # Stop after successful purchase
         else:
