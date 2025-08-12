@@ -26,25 +26,27 @@ def purchase(hook):
 
 
 def ippodo():
+    #URLS
     url = "https://ippodotea.com/products/sayaka-no-mukashi.js"
     ippodo_channel = "https://discord.com/api/webhooks/1404587748727328779/moIUDkcxMnA9HYTZT0KOW-w18-YIjgq5lY1j5fiOnNUX1Qxxtevk18MCn99YWjnJQwlt"
-
-    
+    no_matcha ="https://discord.com/api/webhooks/1404690967344320594/aJrL_o0ijTpiuTjBgU1zjMsQ7vV0jvMBY608UIuGmrCUFpkgU1lB1f7QqqsoBcdi48XN"
+ 
+    #Fetch Data
     response = requests.get(url)
     if response.status_code != 200:
         print("Failed to retrieve data from the API.")
         return
-
     data = response.json()
     variants = data.get('variants', [])
 
+    #Check Stock
     for variant in variants:
         inventory = variant.get("inventory_quantity", 0)
         if inventory > 0:
             send_discord_message(ippodo_channel, "Ippodo Restock! @everyone")
-            break  # Stop after successful purchase
         else:
-            print(f"Sakaya no Mukashi is not available. Inventory: {inventory}")
+            send_discord_message(no_matcha, "Sakaya is not available rn gng.")
+
 
 def main():
     ippodo()
