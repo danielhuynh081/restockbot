@@ -45,7 +45,7 @@ def ippodo():
         if inventory > 0:
             send_discord_message(ippodo_channel, "Ippodo Restock! @everyone")
         else:
-            send_discord_message(no_matcha, "Sakaya is not available rn gng.")
+            send_discord_message(no_matcha, "Sakaya is not available rn.")
 
 
 def main():
